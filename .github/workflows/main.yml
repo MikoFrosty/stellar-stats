@@ -1,0 +1,10 @@
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+
+jobs:
+  retrieve_data:
+    runs-on: ubuntu-latest   
+    steps:
+      - name: Fetch data
+        run: curl "https://jsonplaceholder.typicode.com/todos/1" -o data.json
