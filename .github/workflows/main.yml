@@ -3,8 +3,17 @@ on:
     - cron: "*/5 * * * *"
 
 jobs:
-  retrieve_data:
-    runs-on: ubuntu-latest   
+  retrieve-data:
+    runs-on: ubuntu-latest
     steps:
-      - name: Fetch data
-        run: curl "https://jsonplaceholder.typicode.com/todos/1" -o data.json
+      - uses: actions/checkout@v2
+      - name: Retrieve data from API
+        run: |
+          curl -X GET -H 'Accept: application/json' https://jsonplaceholder.typicode.com/todos/1 > data.json
+      - name: Commit and push changes
+        run: |
+          git config --global user.email "github-actions@example.com"
+          git config --global user.name "GitHub Actions"
+          git add data.json
+          git commit -m "Retrieve data from API"
+          git push
