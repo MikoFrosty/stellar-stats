@@ -1,6 +1,6 @@
-on:
-  schedule:
-    - cron: "*/5 * * * *"
+on: [push]
+  #schedule:
+  #  - cron: "*/5 * * * *"
 
 jobs:
   retrieve-data:
@@ -10,6 +10,9 @@ jobs:
       - name: Retrieve data from API
         run: |
           curl -X GET -H 'Accept: application/json' https://jsonplaceholder.typicode.com/todos/1 > data.json
+      - name: Move JSON File to Target Subfolder
+        run: |
+          mv data.json src
       - name: Commit and push changes
         run: |
           git config --global user.email "github-actions@example.com"
