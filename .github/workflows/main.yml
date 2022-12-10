@@ -33,6 +33,9 @@ jobs:
             fi
           else
             # If the file does not exist, add and commit it
+            git config --global user.email "github-actions@example.com"
+            git config --global user.name "GitHub Actions"
             git add src/data.json
-            git commit -m "Adding new file: src/data.json"
+            git commit -m "Create data from API"
+            git push
           fi
