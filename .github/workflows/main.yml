@@ -15,27 +15,15 @@ jobs:
           mv data.json src
       - name: Commit and push changes
         run: |
-          # Check if the file exists in the repository
-          if [[ -f src/data.json ]]
+          if [[ $(git diff src/data.json) ]]
           then
-            # If the file exists, check if it has been updated
-            if [[ $(git diff src/data.json) ]]
-            then
-              # If the file has been updated, add and commit it
-              git config --global user.email "github-actions@example.com"
-              git config --global user.name "GitHub Actions"
-              git add src/data.json
-              git commit -m "Update data from API"
-              git push
-            else
-              # If the file has not been updated, skip this step
-              echo "File src/data.json has not been updated, skipping commit"
-            fi
-          else
-            # If the file does not exist, add and commit it
+            # If the file has been updated, add and commit it
             git config --global user.email "github-actions@example.com"
             git config --global user.name "GitHub Actions"
             git add src/data.json
-            git commit -m "Create data from API"
+            git commit -m "Update data from API"
             git push
+          else
+            # If the file has not been updated, skip this step
+            echo "File src/data.json has not been updated, skipping commit"
           fi
