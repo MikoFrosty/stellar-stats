@@ -1,29 +1,30 @@
-on: [push]
-  #schedule:
-  #  - cron: "*/5 * * * *"
+on:
+  schedule:
+    # Run every 6 hourse on the 11th minute
+    - cron: "11 */6 * * *"
 
 jobs:
   retrieve-data:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Retrieve data from API
+      - name: Retrieve astronaut data from API
         run: |
-          curl -X GET -H 'Accept: application/json' https://jsonplaceholder.typicode.com/todos/2 > data.json
+          curl -X GET -H 'Accept: application/json' http://open-notify.org/Open-Notify-API/People-In-Space/ > astronauts-in-space.json
       - name: Move JSON File to Target Subfolder
         run: |
-          mv data.json src
+          mv astronauts-in-space.json src
       - name: Commit and push changes
         run: |
-          if [[ $(git diff src/data.json) ]]
+          if [[ $(git diff src/astronauts-in-space.json) ]]
           then
             # If the file has been updated, add and commit it
             git config --global user.email "github-actions@example.com"
             git config --global user.name "GitHub Actions"
-            git add src/data.json
-            git commit -m "Update data from API"
+            git add src/astronauts-in-space.json
+            git commit -m "Update astronauts-in-space from API"
             git push
           else
             # If the file has not been updated, skip this step
-            echo "File src/data.json has not been updated, skipping commit"
+            echo "File src/astronauts-in-space.json has not been updated, skipping commit"
           fi
