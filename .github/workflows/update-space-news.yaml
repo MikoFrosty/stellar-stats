@@ -1,0 +1,30 @@
+on:
+  schedule:
+    # Run every 6 hours on the 11th minute
+    - cron: "11 */6 * * *"
+
+jobs:
+  retrieve-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Retrieve astronaut data from API
+        run: |
+          curl -X GET -H 'Accept: application/json' https://api.spaceflightnewsapi.net/v3/articles > space-news.json
+      - name: Move JSON File to Target Subfolder
+        run: |
+          mv space-news.json src
+      - name: Commit and push changes
+        run: |
+          if [[ $(git diff src/space-news.json) ]]
+          then
+            # If the file has been updated, add and commit it
+            git config --global user.email "github-actions@example.com"
+            git config --global user.name "GitHub Actions"
+            git add src/space-news.json
+            git commit -m "Update space-news from API"
+            git push
+          else
+            # If the file has not been updated, skip this step
+            echo "File src/space-news.json has not been updated, skipping commit"
+          fi
