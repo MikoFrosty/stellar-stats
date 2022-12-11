@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Retrieve data from API
         run: |
-          curl -X GET -H 'Accept: application/json' https://jsonplaceholder.typicode.com/todos/1 > data.json
+          curl -X GET -H 'Accept: application/json' https://jsonplaceholder.typicode.com/todos/2 > data.json
       - name: Move JSON File to Target Subfolder
         run: |
           mv data.json src
