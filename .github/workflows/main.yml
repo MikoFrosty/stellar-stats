@@ -1,6 +1,6 @@
 on:
   schedule:
-    # Run every 6 hourse on the 11th minute
+    # Run every 6 hours on the 11th minute
     - cron: "11 */6 * * *"
 
 jobs:
