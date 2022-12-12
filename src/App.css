@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  min-height: 100vh;
+  background: rgba(0, 0, 0, 0.682);
 }
 
 .App-logo {
@@ -24,6 +26,15 @@
 
 .App-link {
   color: rgb(112, 76, 182);
+}
+
+#stars-background {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
 }
 
 @keyframes App-logo-float {
