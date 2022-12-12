@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Retrieve astronaut data from API
         run: |
-          curl -X GET -H 'Accept: application/json' http://open-notify.org/Open-Notify-API/People-In-Space/ > astronauts-in-space.json
+          curl -X GET -H 'Accept: application/json' http://api.open-notify.org/astros.json > astronauts-in-space.json
       - name: Move JSON File to Target Subfolder
         run: |
           mv astronauts-in-space.json src
